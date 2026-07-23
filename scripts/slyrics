@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Slyrics — synchronized lyrics, runs inline in whatever terminal you launch
+# it from (like btop, htop, etc.) — no separate window, no new tab.
+#
+# Usage:
+#   slyrics                              # normal (white) lyrics
+#   slyrics -blue                        # colored lyrics
+#   slyrics -#ff00ff                     # any hex color
+#   slyrics pipe --player browser -v     # any other slyrics-bin flag/subcommand works too
+#
+# Colors: -white -red -orange -yellow -green -cyan -blue -purple -pink
+
+color_hex=""
+case "$1" in
+  -white)  color_hex="#f5f5f7" ;;
+  -red)    color_hex="#f14c4c" ;;
+  -orange) color_hex="#ff9f43" ;;
+  -yellow) color_hex="#f9e858" ;;
+  -green)  color_hex="#4ade80" ;;
+  -cyan)   color_hex="#22d3ee" ;;
+  -blue)   color_hex="#3b82f6" ;;
+  -purple) color_hex="#a78bfa" ;;
+  -pink)   color_hex="#f472b6" ;;
+  -\#[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F])
+    color_hex="${1#-}"
+    ;;
+esac
+
+slyrics_args=("$@")
+if [ -n "$color_hex" ]; then
+  slyrics_args=("${@:2}")
+  slyrics_args+=(--current "bold,$color_hex")
+fi
+
+exec slyrics-bin "${slyrics_args[@]}"
