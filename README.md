@@ -48,6 +48,7 @@ Spotify needs a one-time login: create an app at [developer.spotify.com](https:/
 ```yaml
 style:
   blockFont: true      # big ASCII-block letters instead of normal text
+  effect3d: false      # adds a 3d effect for the ASCII-block
   onlyCurrent: true     # show only the current line, centered
   uppercase: true
   hAlignment: center
